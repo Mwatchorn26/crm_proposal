@@ -5,12 +5,13 @@
 		<!--				  	-->
 		<!-- PROPOSAL FORM 		-->
 		<!--				  	-->
+
 		<record id="action_crm_lead_proposal_form" model="ir.ui.view">
 			<field name="name">crm.lead.proposal.form</field>
 			<field name="model">crm.lead.proposal</field>
 			<field name="arch" type="xml">
-				<form string="Opportunity Proposal" version="7.0">
-					<!--	
+				<form string="Opportunity Proposal">
+<!--	
 					<header>
 						<button name="send_proposal" states="draft" class="oe_highlight" string="Send Proposal" groups="base.group_user"/>
 						<button name="convert_to_quote" states="draft, sent" class="oe_highlight" string="Convert to Quote" groups="base.group_user"/>
@@ -20,25 +21,20 @@
 					-->
 					<sheet>
 					    <div class="oe_title">
-						<label for="name" class="oe_edit_only"/>
 						<h1><field name="name"/></h1>
-						<label for="planned_revenue" class="oe_edit_only"/>
-						<h2>
-						    <field name="planned_revenue" class="oe_inline" widget='monetary'/>
-						    <span class="oe_grey"> at </span>
-						    <field name="probability" class="oe_inline" widget="integer"/>%%
-						</h2>
 					    </div>
 					    <group>                    
-						<group>
-							<field name="active" />
-							<field name="opportunity_id"/>
-							<field name="project_code"/>
-						</group>
-						<group>
-						    <field name="proposal_date"/>
-						    <field name="proposal_number"/>
-						</group>
+							<group>
+								<field name="active">Active</field>
+								<field name="opportunity_id">Opportunity</field>
+								<!-- <field name="project_code"/> -->
+								<!-- <field name="pc"/> -->								
+							</group>
+							<group>
+							    <field name="create_date">Proposal Started</field>
+							    <field name="proposal_number">Proposal Number</field>
+						    	<field name="planned_revenue">Planned Revenue</field>
+							</group>
 					    </group>
 					</sheet>
 					<div class="oe_chatter">
@@ -55,61 +51,40 @@
 		<!-- 			 -->
 		<!-- Proposals Tree View -->
 		<!-- 			 -->
-
+<!--
 		<record model="ir.ui.view" id="crm_lead_proposal_tree">
 			<field name="name">Proposals Tree</field>
 			<field name="model">crm.lead.proposal</field>
 			<field name="arch" type="xml">
-		<!--                <tree string="Opportunities" fonts="bold:message_unread==True" colors="gray:state in ('sent', 'accepted','rejected');blue:state in ('draft')"> -->
 				<tree string="Proposals">
-				
 					<field name="name"/>
-					<!--
-					    <field name="company_currency" invisible="1"/>
-					-->    
-<!--					<field name="planned_revenue" class="oe_inline" widget='monetary' options="{'currency_field': 'company_currency'}"/>
-					<field name="probability" class="oe_inline" widget="integer"/>%%
--->			
 					<field name="active" />
-
-<!--					<field name="opportunity_id.project_code"/>
-
-					<field name="project_name"/>
--->
 					<field name="opportunity_id" string="Opportunity"/>
-					<field name="project_code"/>
-					<field name="proposal_date"/>
+					<field name="project_code"/>					
 					<field name="proposal_number"/>
-
-			    			<!--
-					    <field name="state" invisible="1"/>
-					-->
+-->
+			<!-- 	<field name="opportunity_id.project_code"/>
+					<field name="planned_revenue" class="oe_inline" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+					<field name="probability" class="oe_inline" widget="integer"/>%%
+					<field name="project_name"/>
+					<field name="state" invisible="1"/>
+			-->
+<!--			
 				</tree>
 			</field>
 		</record>	
-
-<!--
-		<record model="ir.actions.act_window.view" id="action_crm_tag_form_view_oppor11">
-			<field name="sequence" eval="2"/>
-			<field name="view_mode">form</field>
-			<field name="view_id" ref="crm_case_form_view_oppor"/>
-			<field name="act_window_id" ref="crm_lead_act_oppor11"/>
-		</record>
-
--->	
+-->
+		
 		<record model="ir.actions.act_window" id="action_crm_proposal_view">
-		    	<field name="name">crm.lead.proposal</field>
+		    	<field name="name">crm_lead_proposal</field>
 		    	<field name="res_model">crm.lead.proposal</field>
 		    	<field name="type">ir.actions.act_window</field>
 		    	<field name="view_type">form</field>
 		    	<field name="view_mode">form,tree</field>
 			<field name="sequence" eval="0"/>
 		</record>
-
 		
 		<menuitem name="Proposals" parent="crm.menu_crm_opportunities" id="crm_menu_proposals" action="action_crm_proposal_view" />
-		
-		
 		
 		<!-- 							-->
 		<!-- crm.lead Inherit Addon		-->
@@ -120,97 +95,32 @@
 	    		<field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
 	    		<field name="arch" type="xml">
 		                <data>
-                	    		<xpath expr="//field[@name='name']" position="after">
-						<label for="project_code" class="oe_edit_only"/>
-                        			<field name="project_code"/>
-                    			</xpath>
-                	    		<xpath expr="//field[@name='partner_id']" position="before">
+		            <!-- Proposal           -->
+		                		<xpath expr="//field[@name='partner_id']" position="before">
                         			<field name="proposal_id"/>
                     			</xpath>
 
 					<!-- Opportunity Extras -->
-                	    		<xpath expr="//field[@name='categ_ids']" position="after">
-                        			<field name="proposal_due_date"/>
-                        			<field name="animation_due_date"/>
-                        			<field name="concept_due_date"/>
-                        			<field name="decision"/>
-                        			<field name="delivery"/>
-                        			<field name="summary_notes"/>
+					
+<!--                 	    		<xpath expr="//field[@page='Lead']" position="before">
+                	    			<page string="Proposal Details">
+                	    				<group string="Proposal Details Group">
+                	    					<group string="Proposal Details Start Dates">
+			                        			<field name="proposal_due_date"/>
+			                        			<field name="animation_due_date"/>
+			                        			<field name="concept_due_date"/>
+											</group>
+                	    					<group string="Proposal Details Project Delivery">			
+			                        			<field name="delivery"/>
+											</group>	                        			
+										</group>
+									</page>
                     			</xpath>
+-->                    						
                 		</data>
 	    		</field>
 		</record>
+
 		
-
-
-		<!-- 							-->
-		<!-- crm.opportunity Extras / Rewrite		-->
-		<!-- 							-->	
-		<record model="ir.ui.view" id="crm_case_tree_view_oppor">
-	    		<field name="name">CRM - Opportuntities Tree - Proposal Inherit</field>
-	    		<field name="model">crm.lead</field>
-	    		<field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
-	    		<field name="arch" type="xml">
-		                <data>
-
-<!--					<xpath expr="//tree" editable="bottom"/> -->
-
-					<!-- Opportunity Extras -->
-<!--                	    		<xpath expr="//field[@name='section_id']" position="after">
-                        			<field name="project_code"/>
-	                       			<field name="proposal_id"/>
-                        			<field name="proposal_due_date"/>
-                        			<field name="animation_due_date"/>
-                        			<field name="concept_due_date"/>
-                        			<field name="decision"/>
-                        			<field name="delivery"/> -->
-<!--                        			<field name="summary_notes"/> -->
-<!--                   				<field name="priority" invisible="0"/>
-						<field name="create_date" invisible="1"/>
-                    			</xpath> -->
-
-					<xpath expr="//tree" position="replace">
-
-					 	<tree string="Opportunities" fonts="bold:message_unread==True" colors="gray:state in ('cancel', 'done');red:date_deadline and (date_deadline &lt; current_date)" editable="bottom">
-						    	<field name="date_deadline" invisible="1"/>
-						 	<field name="create_date" invisible="1"/>
-
-						    	<field name="partner_id" string="Customer"/>
-							<field name="project_code"/>
-							<field name="name" string="Project"/>
-
-							<field name="decision"/>
-							<field name="delivery"/>
-							<field name="planned_revenue" sum="Expected Revenues"/>
-							<field name="user_id"/>
-
-							<field name="priority" />
-				       			<field name="proposal_id" invisible="1"/>
-							<field name="proposal_due_date"/>
-							<field name="animation_due_date"/>
-							<field name="concept_due_date"/>
-
-<!--                        				<field name="summary_notes"/> -->
-
-<!--				
-							<field name="country_id" invisible="context.get('invisible_country', True)"/>
-							<field name="date_action" invisible="1"/>
-							<field name="title_action" invisible="1"/>
-							<field name="stage_id" invisible="1"/>
-							<field name="probability" avg="Avg. of Probability" invisible="1" />
-							<field name="section_id" invisible="context.get('invisible_section', True)"/>
-							<field name="referred" invisible="1"/>
--->							<field name="message_unread" invisible="1"/>
-							<field name="state" invisible="1"/> <!--
-							<field name="channel_id" invisible="1"/>
-							<field name="type_id" invisible="1"/>
--->						</tree>
-				     	</xpath>
-
-                		</data>
-	    		</field>
-		</record> 
-
-
 	</data>
 </openerp>
