@@ -21,19 +21,24 @@
 					-->
 					<sheet>
 					    <div class="oe_title">
-						<h1><field name="name"/></h1>
+						<h1>Proposal Title:<field name="name"/></h1>
 					    </div>
 					    <group>                    
 							<group>
 								<field name="active">Active</field>
 								<field name="opportunity_id">Opportunity</field>
-								<!-- <field name="project_code"/> -->
-								<!-- <field name="pc"/> -->								
+								<field name="project_code">Project Code:</field>		
 							</group>
 							<group>
 							    <field name="create_date">Proposal Started</field>
 							    <field name="proposal_number">Proposal Number</field>
 						    	<field name="planned_revenue">Planned Revenue</field>
+						    	<field name="proposal_due_date">Due Date</field>
+						    	<field name="proposal_submitted">Submitted</field>
+<!--						    	<div id="submitted" attrs="{'invisible':[('proposal_submitted','=',False)]}"> -->
+						    		<field name="proposal_date_submitted"  attrs="{'invisible':[('proposal_submitted','=',False)]}">Date Submitted</field> 
+						    		<field name="proposal_version_submitted"  attrs="{'invisible':[('proposal_submitted','=',False)]}">Version Submited</field>
+	<!--					    	</div> -->
 							</group>
 					    </group>
 					</sheet>

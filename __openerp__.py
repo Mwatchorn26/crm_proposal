@@ -15,7 +15,7 @@
     "sequence": 16,
     #"init" : [],
     "demo" : [],
-    "data" : [],
+    #"data" : [],
     "data" : ["crm_proposal_view.xml",],    
     'test': [],
     #'installable': True,   
